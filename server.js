@@ -5,3 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 
 const app = express()
 const PORT = process.env.PORT || 3500
+
+let database = require('./db/db.json')
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
