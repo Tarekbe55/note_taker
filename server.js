@@ -5,16 +5,15 @@ const { v4: uuidv4 } = require('uuid')
 
 const app = express()
 const PORT = process.env.PORT || 3500
-
 let dataB = require('./db/db.json')
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public', '/index.html')));
-
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../public', '/notes.html')));
+
 
 app.post('/api/notes', (req, res) => {
   req.body.id = uuidv4();
@@ -22,3 +21,12 @@ app.post('/api/notes', (req, res) => {
   dataB.push(newN);
   fs.writeFileSync('./db/db.json', JSON.stringify(DB));
   res.json(dataB);
+
+  app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    dataB = dataB.filter(notes => notes.id != id);
+    fs.writeFileSync('./db/db.json', JSON.stringify(dataB));
+    res.json(dataB);
+  })
+
+  app.listen(PORT, () => console.log(`Server is listening on PORT ${PORT}`));
