@@ -40,5 +40,5 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 ## Contact
 
-Please contact me at tbtarek@gmail.com for any questions
+Please contact me at tbtarek@gmail.com for any questions.
 
